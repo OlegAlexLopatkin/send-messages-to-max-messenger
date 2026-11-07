@@ -1,0 +1,49 @@
+@use "src/styles/variables" as *;
+
+.button {
+  background-color: $button-color-primary;
+  border: none;
+  border-radius: 20px;
+  box-sizing: border-box;
+  color: $white-color;
+  cursor: pointer;
+  font-family: $font-family;
+  font-size: $main-font-size;
+  font-weight: $font-weight-semibold;
+  height: 60px;
+  letter-spacing: 0.15px;
+  line-height: 20px;
+  padding: 18px 22px;
+  text-align: center;
+  user-select: none;
+  white-space: nowrap;
+  width: 100%;
+
+  &:hover:not(:disabled) {
+    background-color: $button-color-primary-hover;
+  }
+
+  &:active:not(:disabled) {
+    background-color: $button-color-primary-active;
+  }
+
+  &:focus {
+    outline: 2px solid $button-color-primary;
+    outline-offset: 2px;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $button-color-primary;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    background-color: $button-color-primary-disabled;
+    color: $text-color-disabled;
+    cursor: auto;
+  }
+}

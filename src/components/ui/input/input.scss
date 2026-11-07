@@ -1,0 +1,21 @@
+@use "src/styles/variables" as *;
+
+.input {
+  width: 100%;
+}
+
+.input__input {
+  background-color: $input-background-color;
+  border: none;
+  border-radius: 16px;
+  box-sizing: border-box;
+  color: $text-color-primary;
+  font-family: $font-family;
+  font-size: $main-font-size;
+  font-weight: $font-weight-normal;
+  height: 52px;
+  line-height: 40px;
+  outline: none;
+  padding: 6px 12px;
+  width: 100%;
+}

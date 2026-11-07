@@ -1,0 +1,14 @@
+@use "src/styles/mixins" as *;
+@use "src/styles/variables" as *;
+
+.contacts-form {
+  @include main-page-form();
+}
+
+.contacts-form__wrapper {
+  @include main-page-form-wrapper();
+}
+
+.contacts-form__title {
+  @include title();
+}

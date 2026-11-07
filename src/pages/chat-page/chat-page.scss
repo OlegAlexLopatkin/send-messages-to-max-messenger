@@ -1,0 +1,12 @@
+@use "src/styles/variables" as *;
+
+.chat-page {
+  align-items: start;
+  background-color: $page-background-color;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+  height: 100svh;
+  width: 100%;
+}

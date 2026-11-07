@@ -1,0 +1,63 @@
+@use "src/styles/variables" as *;
+
+.chat-messages {
+  align-content: start;
+  box-sizing: border-box;
+  display: grid;
+  gap: 4px;
+  height: calc(100svh - 180px);
+  margin: 0 auto;
+  max-width: 732px;
+  padding: 16px;
+  width: 100%;
+}
+
+.chat-messages__message {
+  background-color: #e9fdff;
+  border-radius: 6px;
+  display: grid;
+  gap: 2px;
+  justify-self: end;
+  max-width: 70%;
+  padding: 8px 10px 10px;
+  position: relative;
+}
+
+.chat-messages__message_income {
+  background-color: $white-color;
+  justify-self: start;
+}
+
+.chat-messages__message-text {
+  color: #011c29;
+  font-family: $font-family;
+  font-weight: $font-weight-normal;
+  font-size: $main-font-size;
+  line-height: 20px;
+  white-space: pre-wrap;
+  word-break: break-word;
+
+  &::after {
+    content: "";
+    display: inline-block;
+    height: $main-font-size;
+    width: 33px;
+  }
+}
+
+.chat-messages__message-time {
+  bottom: 4px;
+  color: #0784b8;
+  font-family: $font-family;
+  font-size: 11px;
+  font-weight: $font-weight-normal;
+  justify-self: end;
+  letter-spacing: 0.3px;
+  line-height: 14px;
+  position: absolute;
+  right: 10px;
+}
+
+.chat-messages__message-time_income {
+  color: rgba(6, 7, 8, 0.52);
+}

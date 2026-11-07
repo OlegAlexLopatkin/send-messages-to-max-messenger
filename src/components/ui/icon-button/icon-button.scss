@@ -1,0 +1,63 @@
+@use "src/styles/variables" as *;
+
+.icon-button {
+  align-items: center;
+  border: none;
+  box-sizing: border-box;
+  color: rgba(6, 7, 8, 0.84);
+  cursor: pointer;
+  display: grid;
+  justify-content: center;
+  padding: 0;
+  user-select: none;
+
+  &:focus {
+    outline: 2px solid $button-color-primary;
+    outline-offset: 2px;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $button-color-primary;
+    outline-offset: 2px;
+  }
+}
+
+.icon-button_ghost {
+  background-color: transparent;
+  border-radius: 18px;
+  height: 40px;
+  width: 40px;
+
+  &:hover {
+    background-color: rgba(13, 13, 13, 0.0392);
+  }
+
+  &:active {
+    background-color: rgba(13, 13, 13, 0.0784);
+  }
+}
+
+.icon-button_primary {
+  background-color: $button-color-primary;
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+
+  &:hover:not(:disabled) {
+    background-color: $button-color-primary-hover;
+  }
+
+  &:active:not(:disabled) {
+    background-color: $button-color-primary-active;
+  }
+
+  &:disabled {
+    background-color: $button-color-primary-disabled;
+    color: $text-color-disabled;
+    cursor: auto;
+  }
+}

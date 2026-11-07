@@ -1,0 +1,13 @@
+.scrollable {
+  overflow: auto;
+  scrollbar-width: thin;
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+}

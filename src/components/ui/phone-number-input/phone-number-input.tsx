@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { memo, type FC } from "react";
 
 import PhoneInput from "react-phone-number-input";
 import ru from "react-phone-number-input/locale/ru";
@@ -26,4 +26,4 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({ value, onChange }) => {
   );
 };
 
-export default PhoneNumberInput;
+export default memo(PhoneNumberInput);

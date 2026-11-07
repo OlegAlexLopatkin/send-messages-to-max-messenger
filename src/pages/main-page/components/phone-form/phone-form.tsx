@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 import { useNavigate } from "react-router";
 
 import { nextStage, previousStage } from "src/app/app-slice";
@@ -70,4 +70,4 @@ const PhoneForm = () => {
   );
 };
 
-export default PhoneForm;
+export default memo(PhoneForm);

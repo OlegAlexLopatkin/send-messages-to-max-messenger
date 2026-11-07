@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 
 import { getNotification, selectIsChatLoading } from "src/app/chat-slice";
 import { useAppDispatch, useAppSelector } from "src/app/hooks";
@@ -39,4 +39,4 @@ const ChatPage = () => {
   );
 };
 
-export default ChatPage;
+export default memo(ChatPage);

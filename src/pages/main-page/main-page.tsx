@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import { selectIsContactsScreen, selectIsPhoneScreen } from "src/app/app-slice";
 import { useAppSelector } from "src/app/hooks";
 
@@ -21,4 +23,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default memo(MainPage);

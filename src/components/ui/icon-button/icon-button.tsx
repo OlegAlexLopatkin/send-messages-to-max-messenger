@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { memo, type FC } from "react";
 import classNames from "classnames";
 
 import type { IconButtonProps } from "./icon-button.props";
@@ -22,4 +22,4 @@ const IconButton: FC<IconButtonProps> = ({
   );
 };
 
-export default IconButton;
+export default memo(IconButton);

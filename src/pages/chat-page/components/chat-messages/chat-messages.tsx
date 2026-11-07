@@ -1,3 +1,4 @@
+import { memo } from "react";
 import classNames from "classnames";
 
 import { useAppSelector } from "src/app/hooks";
@@ -41,4 +42,4 @@ function getTime(timestamp: number) {
   return `${hours > 9 ? hours : `0${hours}`}:${minutes > 9 ? minutes : `0${minutes}`}`;
 }
 
-export default ChatMessages;
+export default memo(ChatMessages);

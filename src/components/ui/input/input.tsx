@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { memo, type FC } from "react";
 import classNames from "classnames";
 
 import type { InputProps } from "./input.props";
@@ -19,4 +19,4 @@ const Input: FC<InputProps> = ({ className, onChange, ...props }) => {
   );
 };
 
-export default Input;
+export default memo(Input);

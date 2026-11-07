@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 import { useNavigate } from "react-router";
 
 import { previousStage } from "src/app/app-slice";
@@ -40,4 +40,4 @@ const ChatHeader = () => {
   );
 };
 
-export default ChatHeader;
+export default memo(ChatHeader);

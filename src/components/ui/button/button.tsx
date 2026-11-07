@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { memo, type FC } from "react";
 import classNames from "classnames";
 
 import type { ButtonProps } from "./button.props";
@@ -21,4 +21,4 @@ const Button: FC<ButtonProps> = ({
   );
 };
 
-export default Button;
+export default memo(Button);

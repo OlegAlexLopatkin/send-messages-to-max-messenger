@@ -1,4 +1,4 @@
-import { useCallback, type ChangeEvent } from "react";
+import { type ChangeEvent, memo, useCallback } from "react";
 
 import { useAppDispatch, useAppSelector } from "src/app/hooks";
 import { setMessageInputValue, sendMessage } from "src/app/chat-slice";
@@ -55,4 +55,4 @@ const ChatForm = () => {
   );
 };
 
-export default ChatForm;
+export default memo(ChatForm);

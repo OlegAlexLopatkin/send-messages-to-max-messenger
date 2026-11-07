@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 import { toast } from "react-toastify";
 
 import { nextStage } from "src/app/app-slice";
@@ -95,4 +95,4 @@ const ContactsForm = () => {
   );
 };
 
-export default ContactsForm;
+export default memo(ContactsForm);

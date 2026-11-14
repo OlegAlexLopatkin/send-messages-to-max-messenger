@@ -1,6 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { API_URL, ChatMessageType, MessageType, Webhook } from "src/constants";
+import {
+  API_URL,
+  ChatMessageType,
+  MessageType,
+  TextErrors,
+  ToastIds,
+  Webhook,
+} from "src/constants";
 import type {
   AccountVerification,
   ChatMessage,
@@ -40,12 +47,13 @@ export const apiSlice = createApi({
         let message: ChatMessage | null = null;
 
         try {
+          const startTime = Date.now();
           const result = await fetchWithBaseQuery(
             `/waInstance${idInstance}/receiveNotification/${apiTokenInstance}?receiveTimeout=30`,
           );
 
           if (result.error) {
-            return { error: result.error };
+            throw new Error();
           }
 
           if (result.data) {
@@ -99,16 +107,22 @@ export const apiSlice = createApi({
             });
 
             if (deleteRequestResult.error) {
-              return { error: deleteRequestResult.error };
+              throw new Error();
+            }
+          } else {
+            const endTime = Date.now();
+            if (endTime - startTime < 1000) {
+              throw new Error();
             }
           }
 
           return { data: message };
-        } catch (error) {
+        } catch {
+          await new Promise((resolve) => setTimeout(resolve, 5000));
           return {
             error: {
               status: "CUSTOM_ERROR",
-              error: error instanceof Error ? error.message : String(error),
+              error: TextErrors[ToastIds.ERROR_EXECUTING_REQUEST],
             },
           };
         }

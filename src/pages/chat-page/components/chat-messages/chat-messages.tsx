@@ -21,7 +21,7 @@ const ChatMessages = () => {
       idInstance,
     },
     {
-      pollingInterval: 1000,
+      pollingInterval: 100,
     },
   );
 

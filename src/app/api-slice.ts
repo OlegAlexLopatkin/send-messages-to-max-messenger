@@ -14,6 +14,7 @@ import type {
   MessageResponse,
   Notification,
 } from "src/types";
+import { getRandomNumber } from "src/utils";
 
 interface GetNotification {
   apiTokenInstance: string;
@@ -118,7 +119,9 @@ export const apiSlice = createApi({
 
           return { data: message };
         } catch {
-          await new Promise((resolve) => setTimeout(resolve, 5000));
+          await new Promise((resolve) =>
+            setTimeout(resolve, getRandomNumber(4000, 6000)),
+          );
           return {
             error: {
               status: "CUSTOM_ERROR",
@@ -132,6 +135,9 @@ export const apiSlice = createApi({
       query: ({ apiTokenInstance, chatId, idInstance, message }) => ({
         url: `/waInstance${idInstance}/sendMessage/${apiTokenInstance}`,
         method: "POST",
+        headers: {
+          "content-type": "application/json;charset=utf-8",
+        },
         body: {
           chatId: chatId,
           message: message,

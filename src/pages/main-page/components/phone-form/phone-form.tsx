@@ -28,6 +28,7 @@ import {
   TextErrors,
   ToastIds,
 } from "src/constants";
+import { isErrorFetchBaseHttpError } from "src/utils";
 
 import "react-phone-number-input/style.css";
 import "./phone-form.scss";
@@ -90,7 +91,7 @@ const PhoneForm = () => {
         });
       }
     } catch (e: unknown) {
-      if (typeof e === "object" && e !== null && "status" in e) {
+      if (isErrorFetchBaseHttpError(e)) {
         if (
           e.status === 400 &&
           "data" in e &&
@@ -142,7 +143,7 @@ const PhoneForm = () => {
             className="phone-form__icon-button"
             aria-label="На предыдущую страницу"
             disabled={isLoading}
-            icon={<BsArrowLeftShort color="rgba(6, 7, 8, 0.84)" size={24} />}
+            icon={<BsArrowLeftShort className="phone-form__icon" />}
             onClick={handlePreviousPageButtonClick}
           />
 

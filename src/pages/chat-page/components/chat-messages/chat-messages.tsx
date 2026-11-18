@@ -4,8 +4,10 @@ import { toast } from "react-toastify";
 
 import { useGetNotificationQuery } from "src/app/api-slice";
 import { addMessage } from "src/app/chat-slice";
-import { useAppSelector, useAppDispatch } from "src/app/hooks";
+import { useAppDispatch, useAppSelector } from "src/app/hooks";
+
 import { TextErrors, ToastIds } from "src/constants";
+import { getFormattedTime } from "src/utils";
 
 import "./chat-messages.scss";
 
@@ -57,7 +59,7 @@ const ChatMessages = () => {
                 `chat-messages__message-time_${type}`,
               )}
             >
-              {getTime(timestamp)}
+              {getFormattedTime(timestamp)}
             </span>
           </div>
         );
@@ -65,12 +67,5 @@ const ChatMessages = () => {
     </div>
   );
 };
-
-function getTime(timestamp: number) {
-  const date = new Date(timestamp);
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  return `${hours > 9 ? hours : `0${hours}`}:${minutes > 9 ? minutes : `0${minutes}`}`;
-}
 
 export default memo(ChatMessages);

@@ -1,8 +1,8 @@
 import { memo, useCallback } from "react";
 import { useNavigate } from "react-router";
 
-import { previousStage } from "src/app/app-slice";
 import { useSendMessageMutation } from "src/app/api-slice";
+import { previousStage } from "src/app/app-slice";
 import { useAppDispatch, useAppSelector } from "src/app/hooks";
 
 import { BsArrowLeftShort } from "react-icons/bs";
@@ -32,7 +32,7 @@ const ChatHeader = () => {
         <IconButton
           aria-label="На предыдущую страницу"
           disabled={isLoading}
-          icon={<BsArrowLeftShort color="rgba(6, 7, 8, 0.84)" size={24} />}
+          icon={<BsArrowLeftShort className="chat-header__icon" />}
           onClick={handleButtonClick}
         />
 

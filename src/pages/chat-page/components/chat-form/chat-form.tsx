@@ -1,9 +1,9 @@
 import { type ChangeEvent, memo, useCallback } from "react";
 import { toast } from "react-toastify";
 
+import { useSendMessageMutation } from "src/app/api-slice";
 import { useAppDispatch, useAppSelector } from "src/app/hooks";
 import { setMessageInputValue } from "src/app/chat-slice";
-import { useSendMessageMutation } from "src/app/api-slice";
 
 import { BsArrowUpShort } from "react-icons/bs";
 import IconButton from "src/components/ui/icon-button";
@@ -14,6 +14,7 @@ import {
   TextErrors,
   ToastIds,
 } from "src/constants";
+import { isErrorFetchBaseHttpError } from "src/utils";
 
 import "./chat-form.scss";
 
@@ -44,12 +45,7 @@ const ChatForm = () => {
       }).unwrap();
       dispatch(setMessageInputValue(""));
     } catch (e: unknown) {
-      if (
-        typeof e === "object" &&
-        e !== null &&
-        "status" in e &&
-        e.status === 403
-      ) {
+      if (isErrorFetchBaseHttpError(e) && e.status === 403) {
         toast.error(TextErrors[ToastIds.YOUR_ACCOUNT_IS_SUSPEND], {
           toastId: ToastIds.YOUR_ACCOUNT_IS_SUSPEND,
         });
@@ -86,7 +82,7 @@ const ChatForm = () => {
           className="chat-form__send-message-button"
           aria-label="Отправить сообщение"
           disabled={isLoading || !trimmedMessageInputValue}
-          icon={<BsArrowUpShort color="#ffffff" size={24} />}
+          icon={<BsArrowUpShort className="chat-form__icon" />}
           theme="primary"
           type="submit"
           onClick={handleSendMessageButtonClick}

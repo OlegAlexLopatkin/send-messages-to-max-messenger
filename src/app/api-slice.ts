@@ -1,9 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { toast } from "react-toastify";
+
+import { addMessage } from "src/app/chat-slice";
 
 import {
   API_URL,
   ChatMessageType,
   MessageType,
+  ScreenStage,
   TextErrors,
   ToastIds,
   Webhook,
@@ -14,6 +18,7 @@ import type {
   MessageResponse,
   Notification,
 } from "src/types";
+import type { RootState } from "./store";
 import { getRandomNumber } from "src/utils";
 
 interface GetNotification {
@@ -41,7 +46,7 @@ export const apiSlice = createApi({
     getNotification: builder.query<ChatMessage | null, GetNotification>({
       queryFn: async (
         { apiTokenInstance, idInstance },
-        _queryApi,
+        { dispatch, getState },
         _extraOptions,
         fetchWithBaseQuery,
       ) => {
@@ -52,6 +57,12 @@ export const apiSlice = createApi({
           const result = await fetchWithBaseQuery(
             `/waInstance${idInstance}/receiveNotification/${apiTokenInstance}?receiveTimeout=30`,
           );
+
+          const { stage } = (getState() as RootState).app;
+
+          if (stage !== ScreenStage.CHAT) {
+            return { data: message };
+          }
 
           if (result.error) {
             throw new Error();
@@ -117,8 +128,15 @@ export const apiSlice = createApi({
             }
           }
 
+          if (message) {
+            dispatch(addMessage(message));
+          }
+
           return { data: message };
         } catch {
+          toast.error(TextErrors[ToastIds.ERROR_EXECUTING_REQUEST], {
+            toastId: ToastIds.ERROR_EXECUTING_REQUEST,
+          });
           await new Promise((resolve) =>
             setTimeout(resolve, getRandomNumber(4000, 6000)),
           );
@@ -135,9 +153,6 @@ export const apiSlice = createApi({
       query: ({ apiTokenInstance, chatId, idInstance, message }) => ({
         url: `/waInstance${idInstance}/sendMessage/${apiTokenInstance}`,
         method: "POST",
-        headers: {
-          "content-type": "application/json;charset=utf-8",
-        },
         body: {
           chatId: chatId,
           message: message,

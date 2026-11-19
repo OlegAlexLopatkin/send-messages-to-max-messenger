@@ -32,15 +32,18 @@ import { isErrorFetchBaseHttpError } from "src/utils";
 
 import "react-phone-number-input/style.css";
 import "./phone-form.scss";
+import {
+  setPrevApiTokenInstance,
+  setPrevIdInstance,
+} from "src/app/contacts-slice";
 
 const PhoneForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const { chatId, phone, prevPhone } = useAppSelector((state) => state.phone);
-  const { apiTokenInstance, idInstance } = useAppSelector(
-    (state) => state.contacts,
-  );
+  const { apiTokenInstance, idInstance, prevApiTokenInstance, prevIdInstance } =
+    useAppSelector((state) => state.contacts);
   const [sendPhone, { isLoading }] = useSendPhoneMutation({
     fixedCacheKey: SHARED_SEND_PHONE,
   });
@@ -66,7 +69,12 @@ const PhoneForm = () => {
     }
 
     const phoneNumber = Number(phone.replace(/\D/, ""));
-    if (phoneNumber === prevPhone && !!chatId) {
+    if (
+      phoneNumber === prevPhone &&
+      !!chatId &&
+      apiTokenInstance === prevApiTokenInstance &&
+      idInstance === prevIdInstance
+    ) {
       onNextPageNavigation();
       return;
     }
@@ -83,6 +91,8 @@ const PhoneForm = () => {
         dispatch(setChatId(newChatId));
         dispatch(setPrevPhone(phoneNumber));
         dispatch(setFormattedPhone(formatPhoneNumberIntl(`+${phoneNumber}`)));
+        dispatch(setPrevApiTokenInstance(apiTokenInstance));
+        dispatch(setPrevIdInstance(idInstance));
 
         onNextPageNavigation();
       } else {

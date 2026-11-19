@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import { memo, useState } from "react";
 import { toast } from "react-toastify";
 
 import { nextStage } from "src/app/app-slice";
@@ -19,23 +19,13 @@ const ContactsForm = () => {
     (state) => state.contacts,
   );
 
-  const handleIdInstanceInputChange = useCallback(
-    (value: string) => {
-      dispatch(setIdInstance(value));
-    },
-    [dispatch],
-  );
-
-  const handleApiTokenInstanceInputChange = useCallback(
-    (value: string) => {
-      dispatch(setApiTokenInstance(value));
-    },
-    [dispatch],
-  );
+  const [apiTokenInstanceValue, setApiTokenInstanceValue] =
+    useState(apiTokenInstance);
+  const [idInstanceValue, setIdInstanceValue] = useState(idInstance);
 
   const handleNextButtonClick = () => {
-    if (!apiTokenInstance.trim() || !idInstance.trim()) {
-      if (!apiTokenInstance.trim() && !idInstance.trim()) {
+    if (!apiTokenInstanceValue.trim() || !idInstanceValue.trim()) {
+      if (!apiTokenInstanceValue.trim() && !idInstanceValue.trim()) {
         toast.error(
           TextErrors[ToastIds.API_TOKEN_INSTANCE_AND_ID_INSTANCE_ARE_EMPTY],
           {
@@ -45,21 +35,22 @@ const ContactsForm = () => {
         return;
       }
 
-      if (!apiTokenInstance.trim()) {
+      if (!apiTokenInstanceValue.trim()) {
         toast.error(TextErrors[ToastIds.API_TOKEN_INSTANCE_IS_EMPTY], {
           toastId: ToastIds.API_TOKEN_INSTANCE_IS_EMPTY,
         });
         return;
       }
 
-      if (!idInstance.trim()) {
+      if (!idInstanceValue.trim()) {
         toast.error(TextErrors[ToastIds.ID_INSTANCE_IS_EMPTY], {
           toastId: ToastIds.ID_INSTANCE_IS_EMPTY,
         });
         return;
       }
     }
-
+    dispatch(setIdInstance(idInstanceValue.trim()));
+    dispatch(setApiTokenInstance(apiTokenInstanceValue.trim()));
     dispatch(nextStage());
   };
 
@@ -75,8 +66,8 @@ const ContactsForm = () => {
           placeholder="idInstance"
           required
           type="text"
-          value={idInstance}
-          onChange={handleIdInstanceInputChange}
+          value={idInstanceValue}
+          onChange={setIdInstanceValue}
         />
 
         <Input
@@ -85,8 +76,8 @@ const ContactsForm = () => {
           placeholder="apiTokenInstance"
           required
           type="text"
-          value={apiTokenInstance}
-          onChange={handleApiTokenInstanceInputChange}
+          value={apiTokenInstanceValue}
+          onChange={setApiTokenInstanceValue}
         />
 
         <Button label="Дальше" onClick={handleNextButtonClick} />

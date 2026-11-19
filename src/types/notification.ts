@@ -38,9 +38,7 @@ interface NotificationBody {
   messageData?: MessageData;
 }
 
-export interface NotificationObject {
+export interface Notification {
   receiptId: number;
   body: NotificationBody;
 }
-
-export type Notification = NotificationObject | null;

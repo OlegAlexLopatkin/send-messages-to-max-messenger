@@ -1,12 +1,28 @@
 import { memo } from "react";
 import classNames from "classnames";
 
+import { useGetNotificationQuery } from "src/app/api-slice";
 import { useAppSelector } from "src/app/hooks";
+
+import { getFormattedTime } from "src/utils";
 
 import "./chat-messages.scss";
 
 const ChatMessages = () => {
   const messages = useAppSelector((state) => state.chat.messages);
+  const { apiTokenInstance, idInstance } = useAppSelector(
+    (state) => state.contacts,
+  );
+
+  useGetNotificationQuery(
+    {
+      apiTokenInstance,
+      idInstance,
+    },
+    {
+      pollingInterval: 100,
+    },
+  );
 
   return (
     <div className="chat-messages scrollable">
@@ -26,7 +42,7 @@ const ChatMessages = () => {
                 `chat-messages__message-time_${type}`,
               )}
             >
-              {getTime(timestamp)}
+              {getFormattedTime(timestamp)}
             </span>
           </div>
         );
@@ -34,12 +50,5 @@ const ChatMessages = () => {
     </div>
   );
 };
-
-function getTime(timestamp: number) {
-  const date = new Date(timestamp);
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  return `${hours > 9 ? hours : `0${hours}`}:${minutes > 9 ? minutes : `0${minutes}`}`;
-}
 
 export default memo(ChatMessages);

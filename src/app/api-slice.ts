@@ -113,6 +113,10 @@ export const apiSlice = createApi({
               };
             }
 
+            if (message) {
+              dispatch(addMessage(message));
+            }
+
             const deleteRequestResult = await fetchWithBaseQuery({
               url: `/waInstance${idInstance}/deleteNotification/${apiTokenInstance}/${receiptId}`,
               method: "DELETE",
@@ -126,10 +130,6 @@ export const apiSlice = createApi({
             if (endTime - startTime < 1000) {
               throw new Error();
             }
-          }
-
-          if (message) {
-            dispatch(addMessage(message));
           }
 
           return { data: message };

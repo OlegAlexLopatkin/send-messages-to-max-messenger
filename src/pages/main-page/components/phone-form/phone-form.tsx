@@ -6,16 +6,20 @@ import {
   isPossiblePhoneNumber,
 } from "react-phone-number-input";
 
+import { useSendPhoneMutation } from "src/app/api-slice";
 import { nextStage, previousStage } from "src/app/app-slice";
-import { useAppDispatch, useAppSelector } from "src/app/hooks";
 import { setMessageInputValue, setMessages } from "src/app/chat-slice";
+import {
+  setPrevApiTokenInstance,
+  setPrevIdInstance,
+} from "src/app/contacts-slice";
+import { useAppDispatch, useAppSelector } from "src/app/hooks";
 import {
   setChatId,
   setFormattedPhone,
   setPhone,
   setPrevPhone,
 } from "src/app/phone-slice";
-import { useSendPhoneMutation } from "src/app/api-slice";
 
 import { BsArrowLeftShort } from "react-icons/bs";
 import Button from "src/components/ui/button";
@@ -32,10 +36,6 @@ import { isErrorFetchBaseHttpError } from "src/utils";
 
 import "react-phone-number-input/style.css";
 import "./phone-form.scss";
-import {
-  setPrevApiTokenInstance,
-  setPrevIdInstance,
-} from "src/app/contacts-slice";
 
 const PhoneForm = () => {
   const dispatch = useAppDispatch();

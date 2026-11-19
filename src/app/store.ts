@@ -1,8 +1,4 @@
-import {
-  type Action,
-  type ThunkAction,
-  configureStore,
-} from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 
 import { apiSlice } from "./api-slice";
 import appReducer from "./app-slice";
@@ -22,7 +18,5 @@ export const store = configureStore({
     getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
-export type AppStore = typeof store;
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
-export type AppThunk = ThunkAction<void, RootState, unknown, Action>;
